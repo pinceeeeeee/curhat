@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curhat Bersama - Tempat Berbagi Kesedihan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Latar belakang animasi tetes hujan -->
+    <div class="rain-background"></div>
+    
+    <div class="container">
+        <!-- Header dengan judul dan deskripsi -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-cloud-rain"></i>
+                <h1>Curhat Bersama</h1>
+            </div>
+            <p class="tagline">Tempat berbagi kesedihan tanpa rasa takut dihakimi. Semua curhatan disimpan secara anonim.</p>
+        </header>
+
+        <!-- Form untuk mengirim curhat baru -->
+        <section class="curhat-form">
+            <h2><i class="fas fa-pen-fancy"></i> Bagikan Kesedihanmu</h2>
+            <div class="form-group">
+                <textarea id="curhatInput" placeholder="Tuliskan perasaanmu di sini... Apa yang membuatmu sedih? Bagaimana perasaanmu hari ini?" rows="6"></textarea>
+                <div class="char-count">
+                    <span id="charCount">0</span>/1000 karakter
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="moodSelect">Pilih suasana hati:</label>
+                <select id="moodSelect">
+                    <option value="sad">😢 Sedih</option>
+                    <option value="heartbroken">💔 Patah Hati</option>
+                    <option value="lonely">🌌 Kesepian</option>
+                    <option value="anxious">😰 Cemas</option>
+                    <option value="disappointed">😞 Kecewa</option>
+                    <option value="tired">😴 Lelah</option>
+                    <option value="confused">😕 Bingung</option>
+                </select>
+            </div>
+            <button id="submitBtn" class="btn-submit">
+                <i class="fas fa-paper-plane"></i> Kirim Curhat
+            </button>
+            <div class="info-note">
+                <i class="fas fa-info-circle"></i> Curhatanmu akan tampil di bawah ini dan dapat dilihat oleh pengunjung lain. Data disimpan di browser kamu.
+            </div>
+        </section>
+
+        <!-- Bagian untuk melihat curhatan sendiri -->
+        <section class="my-curhats">
+            <h2><i class="fas fa-history"></i> Curhatanmu Sebelumnya</h2>
+            <div id="myCurhatsList" class="curhats-list">
+                <!-- Curhatan pribadi akan dimuat di sini -->
+            </div>
+            <div id="emptyMyCurhats" class="empty-state">
+                <i class="fas fa-comment-slash"></i>
+                <p>Belum ada curhatan dari kamu. Mulailah berbagi perasaanmu.</p>
+            </div>
+        </section>
+
+        <!-- Bagian untuk melihat curhatan dari pengunjung lain -->
+        <section class="public-curhats">
+            <h2><i class="fas fa-users"></i> Curhatan Pengunjung Lain</h2>
+            <div class="filter">
+                <label for="moodFilter">Filter berdasarkan suasana hati:</label>
+                <select id="moodFilter">
+                    <option value="all">Semua Suasana Hati</option>
+                    <option value="sad">😢 Sedih</option>
+                    <option value="heartbroken">💔 Patah Hati</option>
+                    <option value="lonely">🌌 Kesepian</option>
+                    <option value="anxious">😰 Cemas</option>
+                    <option value="disappointed">😞 Kecewa</option>
+                    <option value="tired">😴 Lelah</option>
+                    <option value="confused">😕 Bingung</option>
+                </select>
+            </div>
+            <div id="publicCurhatsList" class="curhats-list">
+                <!-- Curhatan publik akan dimuat di sini -->
+            </div>
+            <div id="emptyPublicCurhats" class="empty-state">
+                <i class="fas fa-wind"></i>
+                <p>Belum ada curhatan dari pengunjung lain. Jadilah yang pertama berbagi.</p>
+            </div>
+        </section>
+
+        <!-- Footer dengan informasi tambahan -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3><i class="fas fa-heart"></i> Teruntuk Kamu yang Sedang Berjuang</h3>
+                    <p>Semangat ya unutuk orang yang sedang berjuang untuk melawan kesedihan, mungkin perjalanan kamu begitu berat tapi kamu hebat banget ko bisa sampai dititik ini.</p>
+                    <p>-Pince</p>
+                    <p class="disclaimer"><i class="fas fa-exclamation-triangle"></i> Jika kamu mengalami kesedihan mendalam atau pikiran untuk menyakiti diri sendiri, harap segera berdoa kepada tuhanmu. Mungkin kehidupan kamu terasa sulit karna kamu jauh terhadap tuhanmu sendiri</p>
+                </div>
+                <div class="footer-stats">
+                    <div class="stat">
+                        <span id="totalCurhats">0</span>
+                        <p>Total Curhatan</p>
+                    </div>
+                    <div class="stat">
+                        <span id="totalPublicCurhats">0</span>
+                        <p>Curhatan Publik</p>
+                    </div>
+                    <div class="stat">
+                        <span id="totalMood">7</span>
+                        <p>Jenis Suasana Hati</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Pince - untuk KAMU yang sedang berjuang</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal untuk melihat detail curhatan -->
+    <div id="curhatModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3 id="modalTitle">Detail Curhatan</h3>
+                <div id="modalMood" class="mood-badge">😢 Sedih</div>
+            </div>
+            <div class="modal-body">
+                <p id="modalText">Isi curhatan akan muncul di sini</p>
+                <div class="modal-date">
+                    <i class="far fa-clock"></i> <span id="modalDate">05 Februari 2026</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="deleteBtn" class="btn-delete">
+                    <i class="fas fa-trash"></i> Hapus Curhatan Ini
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
